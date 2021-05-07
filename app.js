@@ -26,15 +26,16 @@ function searchByMultiple(){
     let weightInput = parseInt(document.forms['all-criteria']['weight'].value);
     let eyeColorInput = document.forms['all-criteria']['eyeColor'].value;
     let occupationInput = document.forms['all-criteria']['occupation'].value;
-    let parentsInput = document.forms['all-criteria']['parents'].value;
-        if (parentsInput !== ""){
-            parentsInput = parentsInput.split(' ');
-            let parentsInputNumArray = [];
-            for (let i=0; i<parentsInput.length; i++){
-                parentsInputNumArray.push(parseInt(parentsInput[i]))
-            }
-            parentsInput = parentsInputNumArray;
-        }
+    // let parentsInput = document.forms['all-criteria']['parents'].value;
+    //     if (parentsInput !== ""){
+    //         parentsInput = parentsInput.split(',');
+    //         let parentsInputNumArray = [];
+    //         for (let i=0; i<parentsInput.length; i++){
+    //             parentsInputNumArray.push(parseInt(parentsInput[i]))
+    //         }
+    //         parentsInput = parentsInputNumArray;
+    //         console.log(parentsInput);
+    //     }
     let currentSpouseInput = parseInt(document.forms['all-criteria']['currentSpouse'].value);
 
     let filteredPeople = people.filter(function(person){
@@ -47,7 +48,7 @@ function searchByMultiple(){
             && (person.weight == weightInput || isNaN(weightInput))
             && (person.eyeColor === eyeColorInput || eyeColorInput == "")
             && (person.occupation == occupationInput || occupationInput == "")
-            && (person.parents == parentsInput || parentsInput == "") //doesn't work for parents
+            //&& (person.parents ==parentsInput || parentsInput == "") // problem with array equality?
             && (person.currentSpouse == currentSpouseInput || isNaN(currentSpouseInput))) 
             {
                 return true;
@@ -60,6 +61,24 @@ function searchByMultiple(){
 		alert('Sorry, looks like there is no one who matches that search.');
 	}
 }
+
+
+
+function searchDescendants(idInput){
+    let descendants = [];
+    let children = people.filter(function(person){
+        if (person.parents.includes(Number(idInput))){
+            descendants += descendants.concat(searchDescendants(person.id));
+            return true
+        }
+        return false
+    })
+
+    descendants += descendants.concat(children);
+    console.log(descendants);
+    return descendants;
+}
+
 
 function fillTable(array, tableID) {
     let heading = 

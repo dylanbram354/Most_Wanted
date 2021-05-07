@@ -18,7 +18,7 @@
     <br>
 
     <form id="all-criteria">
-      <h1>Search By Multiple Criteria</h1>
+      <h1>Search By One or More Criteria</h1>
       <label for="id">ID Number:</label><br>
       <input type="text" id="id" name="id"><br>
       <label for="fname">First name:</label><br>
@@ -37,8 +37,8 @@
       <input type="text" id="eyeColor" name="eyeColor"><br>
       <label for="occupation">Occupation:</label><br>
       <input type="text" id="occupation" name="occupation"><br>
-      <label for="parents">Parents (ID numbers separate by space):</label><br> <!--how to handle array?-->
-      <input type="text" id="parents" name="parents"><br>
+      <!-- <label for="parents">Parents (ID numbers separate by one comma):</label><br> 
+      <input type="text" id="parents" name="parents"><br> -->
       <label for="currentSpouse">Current spouse (ID number):</label><br>
       <input type="text" id="currentSpouse" name="currentSpouse"><br><br>
       <input type="button" onclick="searchByMultiple()" value="Search">
@@ -48,7 +48,17 @@
     <table id="multi-search-table"></table>
     <br>
 
+    <form id="descendant-search">
+      <h1>Search for a Person's Descendants</h1>
+      <label for="id">ID Number:</label><br>
+      <input type="number" id="id" name="id"><br>
+      <input type="button" onclick="searchDescendants(document.forms['descendant-search']['id'].value)" value="Search">
+    </form>
+
     <br>
+    <table id="descendant-table"></table>
+    <br>
+
     <div>
       <button id="btnTwo">Display All People
       </button>
