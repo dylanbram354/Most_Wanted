@@ -63,22 +63,25 @@ function searchByMultiple(){
 }
 
 
-
 function searchDescendants(idInput){
     let descendants = [];
     let children = people.filter(function(person){
         if (person.parents.includes(Number(idInput))){
-            descendants += descendants.concat(searchDescendants(person.id));
+            descendants = descendants.concat(searchDescendants(person["id"]));
             return true
         }
         return false
     })
 
-    descendants += descendants.concat(children);
-    console.log(descendants);
+    descendants = descendants.concat(children);
     return descendants;
 }
 
+function fillDescendantSearchTable(){
+    let searchInput = document.forms['descendant-search']['id'].value;
+    let results = searchDescendants(searchInput);
+    fillTable(results, "descendant-table");
+}
 
 function fillTable(array, tableID) {
     let heading = 
@@ -114,4 +117,3 @@ btnTwo.addEventListener('click', function() {
 	firstDiv.classList.toggle('hidden');
 	fillTable(people, "all-people");
 });
-
