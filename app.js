@@ -1,5 +1,89 @@
 'use strict';
 
+//Dynamic table construction
+function createThead(table, data) {
+    table.innerHTML = '';
+	let thead = table.createTHead();
+	let row = thead.insertRow();
+    
+	for (let key of data) {
+		let th = document.createElement('th');
+		let text = document.createTextNode(key);
+		th.appendChild(text);
+		row.appendChild(th);
+	}
+}
+
+function createTable(table, data) {
+	for (let element of data) {
+		let row = table.insertRow();
+		for (let key in element) {
+			let cell = row.insertCell();
+			let text = document.createTextNode(element[key]);
+			cell.appendChild(text);
+		}
+	}
+}
+
+function createCustomTable(table, headingsArray, objectArray){
+    createThead(table, headingsArray);
+    createTable(table, objectArray);
+}
+
+//constructing tables with text
+function fillTableCustomHeadings(array, tableID){
+    let heading = '<thead>';
+    for (let keys in array[0]){
+        heading += `<th>${keys}</th>`
+    }
+    heading += '</thead>';
+    let body = '';
+	array.map(function(object) {
+		body += `<tbody><tr>`;
+		for (let i in object) {
+			body += `<td>${object[i]}</td>`;
+		}
+		body += `</tr></tbody>`;
+	});
+	document.getElementById(tableID).innerHTML = heading + body;
+}
+
+function fillTable(array, tableID) {
+    let heading = 
+    `<thead><tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>DoB</th>
+        <th>Height</th>
+        <th>Weight</th>
+        <th>Eye Color</th>
+        <th>Occupation</th>
+        <th>Parents</th>
+        <th>Current Spouse</th>
+    </tr></thead>`
+	let body = '';
+	array.map(function(object) {
+		body += `<tbody><tr>`;
+		for (let i in object) {
+			body += `<td>${object[i]}</td>`;
+		}
+		body += `</tr></tbody>`;
+	});
+	document.getElementById(tableID).innerHTML = heading + body;
+}
+
+//Display all people
+const btnTwo = document.getElementById('btnTwo');
+const firstDiv = document.querySelector('.hidden');
+
+btnTwo.addEventListener('click', function() {
+	firstDiv.classList.toggle('hidden');
+	fillTable(people, "all-people");
+});
+
+//Search functions
 function searchByLastName() {
 	let lastNameInput = document.forms['nameForm']['lname'].value;
 	let filteredPeople = people.filter(function(person) {
@@ -83,8 +167,7 @@ function fillDescendantSearchTable(){
     fillTable(results, "descendant-table");
 }
 
-function familySearch(idNumber){
-    let familyIDs = [];
+function findObjectByIdNum(idNumber){
     let personObject = people.filter(function(person){
         if (person.id == idNumber){
             return true
@@ -92,87 +175,107 @@ function familySearch(idNumber){
         return false
     })
     personObject = personObject[0];
-    let parentsIDArray = personObject.parents;
-    let spouseID = personObject['currentSpouse'];
-    let siblingsIDArray = [];
-    for (let i=0; i<parentsIDArray.length; i++){
-        people.filter(function(person){
-            if (person.parents.includes(parentsIDArray[i]) && person.id !== Number(idNumber)){
-                siblingsIDArray.push(person.id);
-                return true;
-            }
-            return false;
-        })
+    return personObject;
+}
+
+function familyObjectMaker(personObject,relationship){
+    let newObject = {
+        "First Name":personObject.firstName,
+        "Last Name":personObject.lastName,
+        "Relationship":relationship
     }
-    
-    // family = siblingsObjectArray.concat(spouseAndParents);
-    // console.log(family);
-    // fillTable(family, 'parents-table');
+    return newObject;
+}
+function findParents(personObject){
+    let parentsIDArray = personObject['parents'];
+    let parentsObjectArray = [];
+    people.filter(function(person){
+        if (parentsIDArray.includes(person.id) && person.gender == "male"){
+            let fatherObject = familyObjectMaker(person, "Father");
+            parentsObjectArray.push(fatherObject);
+            return true;
+        }
+        else if (parentsIDArray.includes(person.id) && person.gender == "female"){
+            let motherObject = familyObjectMaker(person, "Mother");
+            parentsObjectArray.push(motherObject);
+            return true;
+        }
+        return false;
+    })
+    return parentsObjectArray;
 }
 
-function fillTable(array, tableID) {
-    let heading = 
-    `<thead><tr>
-        <th>ID</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Gender</th>
-        <th>DoB</th>
-        <th>Height</th>
-        <th>Weight</th>
-        <th>Eye Color</th>
-        <th>Occupation</th>
-        <th>Parents</th>
-        <th>Current Spouse</th>
-    </tr></thead>`
-	let body = '';
-	array.map(function(object) {
-		body += `<tbody><tr>`;
-		for (let i in object) {
-			body += `<td>${object[i]}</td>`;
-		}
-		body += `</tr></tbody>`;
-	});
-	document.getElementById(tableID).innerHTML = '';
-	document.getElementById(tableID).innerHTML = heading + body;
+
+function findSiblings(personObject){
+    let siblingsArrayNew = [];
+    let parentsIDArray = personObject.parents;
+    let siblingsArrayOld = people.filter(function(person){
+        if (person.parents.length == 0 || person == personObject){
+            return false;
+        }
+        else if (person.parents.length == 1 && parentsIDArray.includes(person.parents[0])){
+            return true;
+        }
+        else if (person.parents.length == 2 && (parentsIDArray == person.parents || person.parents.includes(parentsIDArray[0]) || person.parents.includes(parentsIDArray[1])))
+            return true;
+    })
+    for (let person of siblingsArrayOld){
+        if (person.gender == 'male'){
+            let brotherObject = familyObjectMaker(person, "Brother");
+            siblingsArrayNew.push(brotherObject);
+        }
+        else{
+            let sisterObject = familyObjectMaker(person, "Sister");
+            siblingsArrayNew.push(sisterObject);
+        }
+    }
+    return siblingsArrayNew;
 }
 
-const btnTwo = document.getElementById('btnTwo');
-const firstDiv = document.querySelector('.hidden');
+function findSpouse(personObject){
+    let spouseArray=[];
+    people.filter(function(person){
+        if (personObject.currentSpouse == person.id && person.gender){
+            if (person.gender =='male'){
+                spouseArray.push(familyObjectMaker(person,'Husband'));
+            }
+            else if (person.gender == 'female'){
+                spouseArray.push(familyObjectMaker(person,"Wife"));
+            }
+            return true;
+        }
+    })
+    return spouseArray;
+};
 
-btnTwo.addEventListener('click', function() {
-	firstDiv.classList.toggle('hidden');
-	fillTable(people, "all-people");
-});
+function findChildren(personObject){
+    let childrenArray = [];
+    people.filter(function(person){
+        if (person.parents.includes(personObject.id)){
+            if (person.gender =='male'){
+                childrenArray.push(familyObjectMaker(person,'Son'));
+            }
+            else if (person.gender == 'female'){
+                childrenArray.push(familyObjectMaker(person,"Daughter"));
+            }
+            return true;
+        }
+    })
+    return childrenArray;
+}
 
-// const me = [ { 'First Name': 'Eric', 'Last Name': 'Dude' } ];
 
-// //===Create thead function===
-// function createThead(table, data) {
-// 	let thead = table.createTHead();
-// 	let row = thead.insertRow();
-// 	for (let key of data) {
-// 		let th = document.createElement('th');
-// 		let text = document.createTextNode(key);
-// 		th.appendChild(text);
-// 		row.appendChild(th);
-// 	}
-// }
+function familySearch(idNumber){
+    let personObject = findObjectByIdNum(idNumber);
+    let parents = findParents(personObject);
+    let siblings = findSiblings(personObject);
+    let spouse = findSpouse(personObject);
+    let children = findChildren(personObject);
+    let familyArray = parents.concat(siblings.concat(spouse.concat(children)));
 
-// //===Create table function===
-// function createTable(table, data) {
-// 	for (let element of data) {
-// 		let row = table.insertRow();
-// 		for (let key in element) {
-// 			let cell = row.insertCell();
-// 			let text = document.createTextNode(element[key]);
-// 			cell.appendChild(text);
-// 		}
-// 	}
-// }
+    let familyTable = document.getElementById('family-table');
+    createCustomTable(familyTable, Object.keys(familyArray[0]),familyArray);
+    //fillTableCustomHeadings(familyArray, 'family-table');
+    return familyArray;
+}
 
-// const table = document.querySelector('table');
-// let data = Object.keys(me[0]);
-
-// createTable(table, me);
-// createThead(table, data);
