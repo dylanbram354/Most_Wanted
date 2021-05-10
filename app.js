@@ -1,6 +1,10 @@
 'use strict';
 
-//Dynamic table construction
+//This group of functions dynamically creates a custom table based on an array of objects.
+//createThead takes in a variable referencing a particular table in the DOM, as well as an array of string/number elements that will become the table headings.
+//createTable takes in that same table variable along with the array of objects, and fills the table body based on the object/key values.
+//createCustomTable puts those two functions together to create the whole table.
+
 function createThead(table, data) {
     table.innerHTML = '';
 	let thead = table.createTHead();
@@ -30,7 +34,11 @@ function createCustomTable(table, headingsArray, objectArray){
     createTable(table, objectArray);
 }
 
-//constructing tables with text
+//This group of functions creates a table in the same way as the previous three, but it uses basic string concatenation to append the HTML code directly
+//as opposed to using dynamic methods. fillTableCustomHeadings takes in a table id tag and an array of objects, and fills the table using the object keys as headings. 
+//fillTable is more specific to this project - the heading is hard-coded based on the given 'people' dataset. The only reason we did this was to give proper capitalization
+//and puncuation to the table headings ("First Name" instead of "firstName", etc).
+
 function fillTableCustomHeadings(array, tableID){
     let heading = '<thead>';
     for (let keys in array[0]){
@@ -74,7 +82,8 @@ function fillTable(array, tableID) {
 	document.getElementById(tableID).innerHTML = heading + body;
 }
 
-//Display all people
+//This code block references a particular button from the DOM as well as a div with class 'hidden'.
+//The addEventListener on btnTwo allows a user to toggle the visibility of the entire div, while also generating a table of all people in the dataset (using the fillTable function).
 const btnTwo = document.getElementById('btnTwo');
 const firstDiv = document.querySelector('.hidden');
 
@@ -83,7 +92,7 @@ btnTwo.addEventListener('click', function() {
 	fillTable(people, "all-people");
 });
 
-//Search functions
+//
 function searchByLastName() {
 	let lastNameInput = document.forms['nameForm']['lname'].value;
 	let filteredPeople = people.filter(function(person) {
@@ -99,6 +108,12 @@ function searchByLastName() {
 		alert('Sorry, looks like there is no one with that last name.');
 	}
 }
+
+//searchByMultiple allows a user to input as many criteria as they want in order to find matching people from the dataset.
+//First, each possible input is assigned to a variable. Any numerical inputs are parsed as ints.
+//Then, the dataset is filtered based on a long string of bools. For each person in the set, each criteria (object key/value) is checked against the search criteria.
+//The || operators ensure that there aren't any false-negatives if a user leaves one or more search fields blank.
+//The function then calls fillTable with the result dataset and generates the table.
 
 function searchByMultiple(){
     let idInput = parseInt(document.forms['all-criteria']['id'].value);
@@ -118,7 +133,6 @@ function searchByMultiple(){
     //             parentsInputNumArray.push(parseInt(parentsInput[i]))
     //         }
     //         parentsInput = parentsInputNumArray;
-    //         console.log(parentsInput);
     //     }
     let currentSpouseInput = parseInt(document.forms['all-criteria']['currentSpouse'].value);
 
@@ -132,7 +146,7 @@ function searchByMultiple(){
             && (person.weight == weightInput || isNaN(weightInput))
             && (person.eyeColor === eyeColorInput || eyeColorInput == "")
             && (person.occupation == occupationInput || occupationInput == "")
-            //&& (person.parents ==parentsInput || parentsInput == "") // problem with array equality?
+            // && (person.parents === parentsInput || parentsInput == "") // "Search by Parents" is removed due to the complexity of comparing array equality
             && (person.currentSpouse == currentSpouseInput || isNaN(currentSpouseInput))) 
             {
                 return true;
@@ -146,7 +160,9 @@ function searchByMultiple(){
 	}
 }
 
-
+//searchDesendants is a recursive function that returns an array of a given person's descendants. It filters through the dataset, finding people who's array of parent-ID-numbers
+//includes the given input ID number. As soon as it finds one, it is called again on that person, finding their children, and so on until there are no children to be found. 
+//With each call, an array of each person's children are concatenated to an array of descendants, with the end result being an array of all descendants of the original person.
 function searchDescendants(idInput){
     let descendants = [];
     let children = people.filter(function(person){
@@ -161,11 +177,19 @@ function searchDescendants(idInput){
     return descendants;
 }
 
+//fillDescendantsSearchTable calls searchDescendants with a user input as the argument, then passes that into fillTable in order to create a table with the elements of the searchDescendants array.
 function fillDescendantSearchTable(){
     let searchInput = document.forms['descendant-search']['id'].value;
     let results = searchDescendants(searchInput);
     fillTable(results, "descendant-table");
 }
+
+//The next group of functions is used to display a given person's immediate family members. First, findObjectByIdNum accesses the particular object from the dataset based on their ID number,
+//which the user inputs. familyObjectMaker takes in an object from the dataset as well as their relationship to the original person (as a string), and creates a new object with only 3 keys.
+//findParents, findSiblings, findSpouse, and findChildren take in the object-person in question and filter through the dataset to find the given relation. Depending on the found person's gender, 
+//they then call familyObjectMaker to create new objects that indicate the relationship to the original person (father, mother, sister, brother, etc). They then push those new objects
+//to an array and return that array.
+
 
 function findObjectByIdNum(idNumber){
     let personObject = people.filter(function(person){
@@ -264,6 +288,9 @@ function findChildren(personObject){
     return childrenArray;
 }
 
+//familySearch takes in an ID number (which will be input by the user) and calls the previous group of functions in order to generate arrays of people
+//who are immediate family members. It then concatenates those arrays, and finally passes that array into the original fillTableCustomHeadings function
+//in order to generate a table with the results. Note that fillTableCustomHeadings creates a heading based on the object keys within the array of objects.
 
 function familySearch(idNumber){
     let personObject = findObjectByIdNum(idNumber);
@@ -273,9 +300,10 @@ function familySearch(idNumber){
     let children = findChildren(personObject);
     let familyArray = parents.concat(siblings.concat(spouse.concat(children)));
 
-    let familyTable = document.getElementById('family-table');
-    createCustomTable(familyTable, Object.keys(familyArray[0]),familyArray);
-    //fillTableCustomHeadings(familyArray, 'family-table');
+    // let familyTable = document.getElementById('family-table');
+    // createCustomTable(familyTable, Object.keys(familyArray[0]),familyArray);
+
+    fillTableCustomHeadings(familyArray, 'family-table');
     return familyArray;
 }
 

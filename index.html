@@ -49,7 +49,7 @@
     <br>
 
     <form id="descendant-search">
-      <h1>Search for a Person's Descendants</h1>
+      <h1>View All of a Person's Descendants</h1>
       <label for="id">ID Number:</label><br>
       <input type="number" id="id" name="id"><br>
       <input type="button" onclick="fillDescendantSearchTable()" value="Search">
@@ -60,7 +60,7 @@
     <br>
 
     <form id="family-search">
-      <h1>Search for a Person's Immediate Family</h1>
+      <h1>View a Person's Immediate Family</h1>
       <label for="id">ID Number:</label><br>
       <input type="number" id="id" name="id"><br>
       <input type="button" onclick="familySearch(document.forms['family-search']['id'].value)" value="Search">
@@ -70,13 +70,13 @@
     <table id="family-table"></table>
     <br>
 
+    <div class="hidden">
+      <table id="all-people"></table>
+    </div> 
+
     <div>
       <button id="btnTwo">Show/Hide All People</button>
     </div>  
-
-    <div class="hidden">
-    <table id="all-people"></table>
-    </div> 
 
     <script src="data.js"></script>
     <script src="app.js"></script>

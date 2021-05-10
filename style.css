@@ -1,3 +1,13 @@
 .hidden {
 	display: none;
 }
+table, th, td {
+	border: 1px solid black;
+  }
+table{
+	margin: auto;
+}
+body {
+	font-family:Verdana, Geneva, Tahoma, sans-serif;
+	text-align: center;
+}
