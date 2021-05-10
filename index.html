@@ -59,6 +59,22 @@
     <table id="descendant-table"></table>
     <br>
 
+    <form id="family-search">
+      <h1>Search for a Person's Immediate Family</h1>
+      <label for="id">ID Number:</label><br>
+      <input type="number" id="id" name="id"><br>
+      <input type="button" onclick="familySearch(document.forms['family-search']['id'].value)" value="Search">
+    </form>
+
+    <br>
+    <table id="family-table"></table>
+      <thead><tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Relationship</th>
+      </tr></thead>
+    <br>
+
     <div>
       <button id="btnTwo">Show/Hide All People
       </button>

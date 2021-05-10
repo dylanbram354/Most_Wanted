@@ -83,6 +83,33 @@ function fillDescendantSearchTable(){
     fillTable(results, "descendant-table");
 }
 
+function familySearch(idNumber){
+    let familyIDs = [];
+    let personObject = people.filter(function(person){
+        if (person.id == idNumber){
+            return true
+        }
+        return false
+    })
+    personObject = personObject[0];
+    let parentsIDArray = personObject.parents;
+    let spouseID = personObject['currentSpouse'];
+    let siblingsIDArray = [];
+    for (let i=0; i<parentsIDArray.length; i++){
+        people.filter(function(person){
+            if (person.parents.includes(parentsIDArray[i]) && person.id !== Number(idNumber)){
+                siblingsIDArray.push(person.id);
+                return true;
+            }
+            return false;
+        })
+    }
+    
+    // family = siblingsObjectArray.concat(spouseAndParents);
+    // console.log(family);
+    // fillTable(family, 'parents-table');
+}
+
 function fillTable(array, tableID) {
     let heading = 
     `<thead><tr>
