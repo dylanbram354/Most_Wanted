@@ -2,67 +2,72 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
     <title>devCodeCamp &middot; Most Wanted</title>
   </head>
   <body id="body">
     <form id="nameForm">
-        <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname" value="Joy"><br>
+      <h1>Search By Last Name</h1>
         <label for="lname">Last name:</label><br>
         <input type="text" id="lname" name="lname" value="Madden"><br><br>
-        <input type="button" onclick="searchByName()" value="Submit">
+        <input type="button" onclick="searchByLastName()" value="Search">
     </form>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Gender</th>
-          <th>DoB</th>
-          <th>Height</th>
-          <th>Weight</th>
-          <th>Eye Color</th>
-          <th>Occupation</th>
-          <th>Parents</th>
-          <th>Current Spouse</th>
-        </tr>
-      </thead>
-      <tbody id="table">
-        
-      </tbody>
-      
-    </table>
+
+    <br>
+    <table id="last-name-table"></table>
+    <br>
+
+    <form id="all-criteria">
+      <h1>Search By One or More Criteria</h1>
+      <label for="id">ID Number:</label><br>
+      <input type="text" id="id" name="id"><br>
+      <label for="fname">First name:</label><br>
+      <input type="text" id="fname" name="fname"><br>
+      <label for="lname">Last name:</label><br>
+      <input type="text" id="lname" name="lname"><br>
+      <label for="gender">Gender:</label><br>
+      <input type="text" id="gender" name="gender"><br>
+      <label for="dob">Date of birth (mm/dd/yyyy):</label><br>
+      <input type="text" id="dob" name="dob"><br>
+      <label for="height">Height:</label><br>
+      <input type="text" id="height" name="height"><br>
+      <label for="weight">Weight:</label><br>
+      <input type="text" id="weight" name="weight"><br>
+      <label for="eyeColor">Eye color:</label><br>
+      <input type="text" id="eyeColor" name="eyeColor"><br>
+      <label for="occupation">Occupation:</label><br>
+      <input type="text" id="occupation" name="occupation"><br>
+      <!-- <label for="parents">Parents (ID numbers separate by one comma):</label><br> 
+      <input type="text" id="parents" name="parents"><br> -->
+      <label for="currentSpouse">Current spouse (ID number):</label><br>
+      <input type="text" id="currentSpouse" name="currentSpouse"><br><br>
+      <input type="button" onclick="searchByMultiple()" value="Search">
+    </form>
+
+    <br>
+    <table id="multi-search-table"></table>
+    <br>
+
+    <form id="descendant-search">
+      <h1>Search for a Person's Descendants</h1>
+      <label for="id">ID Number:</label><br>
+      <input type="number" id="id" name="id"><br>
+      <input type="button" onclick="fillDescendantSearchTable()" value="Search">
+    </form>
+
+    <br>
+    <table id="descendant-table"></table>
+    <br>
 
     <div>
-      <button id="btnTwo">Display All People
+      <button id="btnTwo">Show/Hide All People
       </button>
       <button id="btnThree">Three</button>
     </div>  
-    
 
-    <!-- <div class="hidden">
-      <table id="tableTwo">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>FIRST NAME</th>
-          <th>LAST NAME</th>
-          <th>GENDER</th>
-          <th>DOB</th>
-          <th>HEIGHT</th>
-          <th>WEIGHT</th>
-          <th>EYE COLOR</th>
-          <th>OCCUPATION</th>
-          <th>PARENTS</th>
-          <th>CURRENT SPOUSE</th>
-        </tr>
-      </thead>
-      <tbody id="arr_dataTwo" >
-
-      </tbody>
-    </table>
-    </div> -->
+    <div class="hidden">
+    <table id="all-people"></table>
+    </div> 
 
     <script src="data.js"></script>
     <script src="app.js"></script>
