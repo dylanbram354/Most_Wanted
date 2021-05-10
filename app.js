@@ -21,20 +21,20 @@ function searchByName() {
 	}
 }
 
-function fillTable(array, tableID) {
-	let concat = '';
-	array.map(function(object) {
-		concat += `<tr>`;
-		for (let i in object) {
-			concat += `<td>${object[i]}</td>`;
-		}
-		concat += `</tr>`;
-	});
-	document.getElementById(tableID).innerHTML = '';
-	document.getElementById(tableID).innerHTML = concat;
-}
+// function fillTable(array, tableID) {
+// 	let concat = '';
+// 	array.map(function(object) {
+// 		concat += `<tr>`;
+// 		for (let i in object) {
+// 			concat += `<td>${object[i]}</td>`;
+// 		}
+// 		concat += `</tr>`;
+// 	});
+// 	document.getElementById(tableID).innerHTML = '';
+// 	document.getElementById(tableID).innerHTML = concat;
+// }
 
-fillTable(people, 'table');
+// fillTable(people, 'table');
 
 const btnTwo = document.getElementById('btnTwo');
 // const firstDiv = document.querySelector('.hidden');
@@ -59,3 +59,37 @@ const btnTwo = document.getElementById('btnTwo');
 // 	});
 // 	return seeAllPeople;
 // });
+
+//=====================================================================
+//===Create thead and table functions===
+// const me = [ { 'First Name': 'Eric', 'Last Name': 'Dude' } ];
+
+// //===Create thead function===
+// function createThead(table, data) {
+// 	let thead = table.createTHead();
+// 	let row = thead.insertRow();
+// 	for (let key of data) {
+// 		let th = document.createElement('th');
+// 		let text = document.createTextNode(key);
+// 		th.appendChild(text);
+// 		row.appendChild(th);
+// 	}
+// }
+
+// //===Create table function===
+// function createTable(table, data) {
+// 	for (let element of data) {
+// 		let row = table.insertRow();
+// 		for (let key in element) {
+// 			let cell = row.insertCell();
+// 			let text = document.createTextNode(element[key]);
+// 			cell.appendChild(text);
+// 		}
+// 	}
+// }
+
+// const table = document.querySelector('table');
+// let data = Object.keys(me[0]);
+
+// createTable(table, me);
+// createThead(table, data);
