@@ -338,13 +338,13 @@ let sortedPeople = people.sort((a,b) =>{
 })
 
 let sortedIdArray = [];
-for (let i = 0; i<sortedPeople.length; i++){
-    sortedIdArray.push(parseInt(sortedPeople[i].id));
+for (let person of sortedPeople){
+    sortedIdArray.push(parseInt(person.id));
 }
 
 let idList = '';
-for (let i=0; i<sortedIdArray.length; i++){
-	idList += `<option value=${sortedIdArray[i]}>`;
+for (let num of sortedIdArray){
+	idList += `<option value=${num}>`;
 }
 
 document.getElementById('idNum').innerHTML = idList;
