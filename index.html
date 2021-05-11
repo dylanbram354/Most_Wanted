@@ -44,9 +44,10 @@
         <!-- <label for="parents">Parents (ID numbers separate by one comma):</label><br> 
         <input type="text" id="parents" name="parents"><br> -->
         <label for="currentSpouse">Current spouse (ID number):</label><br>
-        <input type="text" id="currentSpouse" name="currentSpouse"><br><br>
+        <input type="text" id="currentSpouse" name="currentSpouse"><br>
       </div>
-      <input type="button" onclick="searchByMultiple()" value="Search">
+      <br>
+      <input class = "pointer" type="button" onclick="searchByMultiple()" value="Search">
     </form>
 
     <br>
@@ -57,7 +58,7 @@
       <h1>View All of a Person's Descendants</h1>
       <label for="id">ID Number:</label><br>
       <input type="number" id="id" name="id"><br>
-      <input type="button" onclick="fillDescendantSearchTable()" value="Search">
+      <input class="pointer" type="button" onclick="fillDescendantSearchTable()" value="Search">
     </form>
 
     <br>
@@ -68,7 +69,7 @@
       <h1>View a Person's Immediate Family</h1>
       <label for="id">ID Number:</label><br>
       <input type="number" id="id" name="id"><br>
-      <input type="button" onclick="familySearch(document.forms['family-search']['id'].value)" value="Search">
+      <input class="pointer" type="button" onclick="familySearch(document.forms['family-search']['id'].value)" value="Search">
     </form>
 
     <br>
@@ -80,10 +81,10 @@
     </div> 
 
     <div>
-      <button id="btnTwo">Show/Hide All People</button>
+      <button class="pointer" id="btnTwo">Show/Hide All People</button>
     </div>  
 
-    <div><button class="btnThree">Reset</button></div>
+    <div><button class="btnThree pointer">Reset All</button></div>
 
     <script src="data.js"></script>
     <script src="app.js"></script>

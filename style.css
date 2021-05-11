@@ -13,25 +13,27 @@ td {
 }
 table {
 	margin: auto;
-}
-body {
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
-	text-align: center;
+	background-color: black;
 }
 
 .btnThree {
 	position: fixed;
 	top: 0;
 	right: 0;
+	margin: 1%;
 	font-size: 1.2rem;
+	background-color: red;
 }
 
-html {
-	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+.pointer{
+	cursor: pointer;
 }
+
 body {
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-align: center;
 	color: white;
-	background-image: url('./images/family.jpeg');
+	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./images/family.jpeg');
 	background-size: cover;
 	background-repeat: no-repeat;
 }
@@ -42,13 +44,19 @@ label {
 
 .left {
 	position: absolute;
-	margin-left: 20%;
+	width:20%;
+	margin-left: 30%;
 }
 
 .right {
-	margin-left: 45%;
+	margin-left: 20%;
 }
-
-/* #btnTwo {
+label{
+	margin: auto;
+}
+input{
+	margin: auto;
+}
+#btnTwo {
 	margin-bottom: 15rem;
-} */
+}
