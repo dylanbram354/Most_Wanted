@@ -1,13 +1,54 @@
 .hidden {
 	display: none;
 }
-table, th, td {
+
+h1 {
+	color: red;
+}
+
+table,
+th,
+td {
 	border: 1px solid black;
-  }
-table{
+}
+table {
 	margin: auto;
 }
 body {
-	font-family:Verdana, Geneva, Tahoma, sans-serif;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	text-align: center;
 }
+
+.btnThree {
+	position: fixed;
+	top: 0;
+	right: 0;
+	font-size: 1.2rem;
+}
+
+html {
+	background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+}
+body {
+	color: white;
+	background-image: url('./images/family.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+label {
+	color: whitesmoke;
+}
+
+.left {
+	position: absolute;
+	margin-left: 20%;
+}
+
+.right {
+	margin-left: 45%;
+}
+
+/* #btnTwo {
+	margin-bottom: 15rem;
+} */
