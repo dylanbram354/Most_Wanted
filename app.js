@@ -330,3 +330,21 @@ const btnThree = document.querySelector('.btnThree');
 btnThree.addEventListener('click', () => {
 	location.reload();
 });
+
+//Creating ID number dropdown lists for descendant and family searches
+
+let sortedPeople = people.sort((a,b) =>{
+    return a.id-b.id;
+})
+
+let sortedIdArray = [];
+for (let i = 0; i<sortedPeople.length; i++){
+    sortedIdArray.push(parseInt(sortedPeople[i].id));
+}
+
+let idList = '';
+for (let i=0; i<sortedIdArray.length; i++){
+    idList += `<option value=${sortedIdArray[i]}>`;
+}
+
+document.getElementById('idNum').innerHTML = idList;

@@ -57,9 +57,11 @@
     <form id="descendant-search">
       <h1>View All of a Person's Descendants</h1>
       <label for="id">ID Number:</label><br>
-      <input type="number" id="id" name="id"><br>
+      <input list="idNum" id="id" name="id"><br>
       <input class="pointer" type="button" onclick="fillDescendantSearchTable()" value="Search">
     </form>
+
+    <datalist id="idNum"></datalist>
 
     <br>
     <table id="descendant-table"></table>
@@ -68,7 +70,7 @@
     <form id="family-search">
       <h1>View a Person's Immediate Family</h1>
       <label for="id">ID Number:</label><br>
-      <input type="number" id="id" name="id"><br>
+      <input list="idNum" id="id" name="id"><br>
       <input class="pointer" type="button" onclick="familySearch(document.forms['family-search']['id'].value)" value="Search">
     </form>
 
