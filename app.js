@@ -95,21 +95,21 @@ btnTwo.addEventListener('click', function() {
 });
 
 //Remove this?
-function searchByLastName() {
-	let lastNameInput = document.forms['nameForm']['lname'].value;
-	let filteredPeople = people.filter(function(person) {
-		if (person.lastName === lastNameInput) {
-			return true;
-		}
-		return false;
-	});
+// function searchByLastName() {
+// 	let lastNameInput = document.forms['nameForm']['lname'].value;
+// 	let filteredPeople = people.filter(function(person) {
+// 		if (person.lastName === lastNameInput) {
+// 			return true;
+// 		}
+// 		return false;
+// 	});
 
-	if (filteredPeople.length > 0) {
-		fillTable(filteredPeople, 'last-name-table');
-	} else {
-		alert('Sorry, looks like there is no one with that last name.');
-	}
-}
+// 	if (filteredPeople.length > 0) {
+// 		fillTable(filteredPeople, 'last-name-table');
+// 	} else {
+// 		alert('Sorry, looks like there is no one with that last name.');
+// 	}
+// }
 
 //searchByMultiple allows a user to input as many criteria as they want in order to find matching people from the dataset.
 //First, each possible input is assigned to a variable. Any numerical inputs are parsed as ints.
@@ -302,10 +302,10 @@ function familySearch(idNumber){
     let children = findChildren(personObject);
     let familyArray = parents.concat(siblings.concat(spouse.concat(children)));
 
-    // let familyTable = document.getElementById('family-table');
-    // createCustomTable(familyTable, Object.keys(familyArray[0]),familyArray);
+    let familyTable = document.getElementById('family-table');
+    createCustomTable(familyTable, Object.keys(familyArray[0]),familyArray);
 
-    fillTableCustomHeadings(familyArray, 'family-table');
+    // fillTableCustomHeadings(familyArray, 'family-table');
     return familyArray;
 }
 
