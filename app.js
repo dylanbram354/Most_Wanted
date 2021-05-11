@@ -344,7 +344,8 @@ for (let i = 0; i<sortedPeople.length; i++){
 
 let idList = '';
 for (let i=0; i<sortedIdArray.length; i++){
-    idList += `<option value=${sortedIdArray[i]}>`;
+	idList += `<option value=${sortedIdArray[i]}>`;
 }
 
 document.getElementById('idNum').innerHTML = idList;
+
