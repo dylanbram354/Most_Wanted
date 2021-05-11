@@ -291,8 +291,8 @@ function findChildren(personObject){
 }
 
 //familySearch takes in an ID number (which will be input by the user) and calls the previous group of functions in order to generate arrays of people
-//who are immediate family members. It then concatenates those arrays, and finally passes that array into the original fillTableCustomHeadings function
-//in order to generate a table with the results. Note that fillTableCustomHeadings creates a heading based on the object keys within the array of objects.
+//who are immediate family members. It then concatenates those arrays, and finally passes that array into the original createCustomTable function
+//in order to generate a table with the results. 
 
 function familySearch(idNumber){
     let personObject = findObjectByIdNum(idNumber);
@@ -304,7 +304,6 @@ function familySearch(idNumber){
 
     let familyTable = document.getElementById('family-table');
     createCustomTable(familyTable, Object.keys(familyArray[0]),familyArray);
-
     // fillTableCustomHeadings(familyArray, 'family-table');
     return familyArray;
 }
