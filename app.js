@@ -179,10 +179,29 @@ function searchDescendants(idInput) {
 	return descendants;
 }
 
-//fillDescendantsSearchTable calls searchDescendants with a user input as the argument, then passes that into fillTable in order to create a table with the elements of the searchDescendants array.
+//This is just another version of the searchDescendants function that we wrote for practice. Both functions take the same arguments and achieve the same result.
+function searchDescendantsAlt(IDnum){
+    let descendants = [];
+    let children = people.filter(function(person){
+        if (person.parents.includes(Number(IDnum))){
+            return true;
+        }
+        return false
+    })
+    descendants = descendants.concat(children);
+    if (children.length>0){
+        for (let i = 0; i<children.length; i++){
+            descendants = descendants.concat(searchDescendantsAlt(children[i].id));
+        }
+        return descendants;
+    }
+    return descendants;
+}
+
+//fillDescendantsSearchTable calls searchDescendantsAlt with a user input as the argument, then passes that into fillTable in order to create a table with the elements of the searchDescendants array.
 function fillDescendantSearchTable() {
 	let searchInput = document.forms['descendant-search']['id'].value;
-	let results = searchDescendants(searchInput);
+	let results = searchDescendantsAlt(searchInput);
 	fillTable(results, 'descendant-table');
 }
 

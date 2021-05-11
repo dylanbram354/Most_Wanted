@@ -1,9 +1,5 @@
 .hidden {
-	display: none;
-}
-
-h1 {
-	color: red;
+	display:none;
 }
 
 table,
@@ -28,14 +24,18 @@ table {
 .pointer{
 	cursor: pointer;
 }
+html, body{
+	height:120%;
+	margin:0;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./images/family.jpeg');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
 
 body {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	text-align: center;
 	color: white;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('./images/family.jpeg');
-	background-size: cover;
-	background-repeat: no-repeat;
 }
 
 label {
@@ -57,6 +57,6 @@ label{
 input{
 	margin: auto;
 }
-#btnTwo {
+/* #btnTwo {
 	margin-bottom: 15rem;
-}
+} */
